@@ -3,7 +3,6 @@ package com.vivek.jettasks.ui.screens.main
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -35,12 +34,6 @@ fun TaskInput(
     var date by remember { mutableStateOf(TextFieldValue("")) }
     var showDetailsInput by remember { mutableStateOf(false) }
     var showDateChip by remember { mutableStateOf(false) }
-
-    // not showing details input when fab is clicked again, weird feature in Google Tasks app
-    if (!sheetState.isVisible) {
-        showDetailsInput = false
-        showDateChip = false
-    }
 
     Column {
         com.vivek.jettasks.ui.components.TextField(
@@ -111,7 +104,6 @@ fun TaskInput(
                 onClick = {
                     onSaveClick(Task(todo = todo.text, details = details.text, date = date.text))
                     todo = TextFieldValue("")
-                    details = TextFieldValue("")
                     sheetState.hide()
                 },
                 enabled = todo.text.isNotEmpty(),
@@ -125,6 +117,14 @@ fun TaskInput(
                 Text(text = "Save", style = typography.h6)
             }
         }
+    }
+
+    // not showing details input when fab is clicked again, weird feature in Google Tasks app
+    if (!sheetState.isVisible) {
+        showDetailsInput = false
+        showDateChip = false
+        details = TextFieldValue("")
+        date = TextFieldValue("")
     }
 }
 

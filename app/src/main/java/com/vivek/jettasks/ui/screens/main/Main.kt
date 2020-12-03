@@ -3,7 +3,6 @@ package com.vivek.jettasks.ui.screens.main
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Text
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -74,9 +73,13 @@ fun Routing.Main.Content(
             },
             isFloatingActionButtonDocked = true,
             floatingActionButtonPosition = FabPosition.Center,
-        ) {
+        ) { innerPadding ->
 
-            LazyColumn {
+            if (activeTasks.isEmpty() && completedTasks.isEmpty()) {
+                FreshStart()
+            }
+
+            LazyColumn(modifier = Modifier.padding(innerPadding)) {
                 item { MainHeader() }
 
                 items(activeTasks) { task ->
@@ -107,7 +110,10 @@ fun Routing.Main.Content(
                         items(completedTasks) { task ->
                             TaskItem(
                                 task = task,
-                                modifier = Modifier.clickable(onClick = { onTaskClick(task) }),
+                                modifier = Modifier.clickable(
+                                    onClick = { onTaskClick(task) },
+                                    indication = null
+                                ),
                                 onTaskComplete = {
                                     tasksViewModel.activeTask(task = it)
                                     snackBarText = "1 Active"
@@ -117,6 +123,7 @@ fun Routing.Main.Content(
                         }
                     }
                 }
+
             }
         }
     }

@@ -1,10 +1,11 @@
 package com.vivek.jettasks.ui.screens.main
 
-import androidx.compose.foundation.Text
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Menu
 import androidx.compose.material.icons.rounded.MoreVert
@@ -13,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
+import com.vivek.jettasks.R
 import com.vivek.jettasks.ui.screens.Routing
 import com.vivek.jettasks.ui.theme.typography
 import com.vivek.jettasks.utils.getIcon
@@ -112,3 +114,40 @@ fun Routing.Main.SubHeader(
         }
     }
 }
+
+@Composable
+fun Routing.Main.FreshStart() {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Image(vectorResource(id = R.drawable.ic_freshstart), modifier = Modifier.size(240.dp))
+        Spacer(modifier = Modifier.size(16.dp))
+
+        Text(text = "A fresh start", style = typography.body1)
+        Spacer(modifier = Modifier.size(8.dp))
+
+        Text(
+            text = "Anything to add ?",
+            style = typography.body2,
+            color = colors.onPrimary.copy(0.5f)
+        )
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
