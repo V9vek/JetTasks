@@ -10,6 +10,7 @@ import androidx.compose.material.AmbientEmphasisLevels
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.MaterialTheme.colors
+import androidx.compose.material.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,6 +23,7 @@ import com.vivek.jettasks.data.model.Task
 import com.vivek.jettasks.ui.components.DateChip
 import com.vivek.jettasks.ui.components.TextField
 import com.vivek.jettasks.ui.screens.Routing
+import com.vivek.jettasks.ui.screens.ToolbarAction
 import com.vivek.jettasks.utils.getCurrentDate
 import com.vivek.jettasks.utils.getIcon
 import com.vivek.jettasks.viewmodels.TasksViewModel
@@ -40,58 +42,67 @@ fun Routing.Edit.Content(
     var date by remember { mutableStateOf(TextFieldValue(selectedTask.date)) }
     var showDateChip by remember { mutableStateOf(selectedTask.date.isNotEmpty()) }
 
-    Column {
-        Header(
-            onComplete = { tasksViewModel.completeTask(selectedTask) },
-            onBack = onBackPress,
-            onDelete = { tasksViewModel.deleteTask(selectedTask.id) }
-        )
+    Scaffold(
+        topBar = {
+            TopBar(
+                onActionClick = { action ->
+                    when (action) {
+                        ToolbarAction.Complete -> tasksViewModel.completeTask(selectedTask)
+                        ToolbarAction.Delete -> tasksViewModel.deleteTask(selectedTask.id)
+                    }
+                    onBackPress()
+                },
+                onBackPress = onBackPress
+            )
+        }
+    ) { innerPadding ->
+        Column(Modifier.padding(innerPadding)) {
+            TextField(
+                modifier = Modifier.padding(top = 24.dp, start = 24.dp),
+                input = todo,
+                onInputChange = {
+                    todo = it
+                    tasksViewModel.updateTask(
+                        taskId = taskId,
+                        updatedTask = createTask(todo.text, details.text, date.text)
+                    )
+                },
+                placeholder = "Enter Title",
+                fontSize = 22,
+                textColor = colors.onSurface
+            )
 
-        TextField(
-            modifier = Modifier.padding(top = 24.dp, start = 24.dp),
-            input = todo,
-            onInputChange = {
-                todo = it
-                tasksViewModel.updateTask(
-                    taskId = taskId,
-                    updatedTask = createTask(todo.text, details.text, date.text)
-                )
-            },
-            placeholder = "Enter Title",
-            fontSize = 22,
-            textColor = colors.onSurface
-        )
+            EditDetails(
+                input = details,
+                onInputChange = {
+                    details = it
+                    tasksViewModel.updateTask(
+                        taskId = taskId,
+                        updatedTask = createTask(todo.text, details.text, date.text)
+                    )
+                }
+            )
 
-        EditDetails(
-            input = details,
-            onInputChange = {
-                details = it
-                tasksViewModel.updateTask(
-                    taskId = taskId,
-                    updatedTask = createTask(todo.text, details.text, date.text)
-                )
-            }
-        )
-
-        EditDateChip(
-            showDateChip = showDateChip,
-            onTextFieldClick = {
-                showDateChip = true
-                date = TextFieldValue(getCurrentDate())
-                tasksViewModel.updateTask(
-                    taskId = taskId,
-                    updatedTask = createTask(todo.text, details.text, date.text)
-                )
-            },
-            onCrossClick = {
-                showDateChip = false
-                date = TextFieldValue("")
-                tasksViewModel.updateTask(
-                    taskId = taskId,
-                    updatedTask = createTask(todo.text, details.text, date.text)
-                )
-            }
-        )
+            EditDateChip(
+                showDateChip = showDateChip,
+                onTextFieldClick = {
+                    showDateChip = true
+                    date = TextFieldValue(getCurrentDate())
+                    tasksViewModel.updateTask(
+                        taskId = taskId,
+                        updatedTask = createTask(todo.text, details.text, date.text)
+                    )
+                },
+                onCrossClick = {
+                    showDateChip = false
+                    date = TextFieldValue("")
+                    tasksViewModel.updateTask(
+                        taskId = taskId,
+                        updatedTask = createTask(todo.text, details.text, date.text)
+                    )
+                }
+            )
+        }
     }
 }
 

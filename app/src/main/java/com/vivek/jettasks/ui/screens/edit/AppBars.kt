@@ -1,55 +1,47 @@
 package com.vivek.jettasks.ui.screens.edit
 
-import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material.MaterialTheme.colors
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.Done
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.ui.tooling.preview.Preview
-import com.vivek.jettasks.R
-import com.vivek.jettasks.ui.screens.Routing
-import com.vivek.jettasks.utils.getIcon
+import androidx.compose.ui.tooling.preview.Preview
+import com.vivek.jettasks.ui.screens.Routing.Edit.actions
+import com.vivek.jettasks.ui.screens.ToolbarAction
 
 @Composable
-fun Routing.Edit.Header(
-    onComplete: () -> Unit,
-    onBack: () -> Unit,
-    onDelete: () -> Unit
+fun TopBar(
+    onActionClick: (action: ToolbarAction) -> Unit,
+    onBackPress: () -> Unit,
+    backgroundColor: Color = colors.surface,
+    contentColor: Color = colors.onPrimary
 ) {
-    Row(
-        horizontalArrangement = Arrangement.SpaceEvenly,
-        modifier = Modifier.fillMaxWidth().padding(8.dp)
-    ) {
-        IconButton(onClick = onBack) {
-            Icon(Icons.Rounded.ArrowBack, tint = MaterialTheme.colors.onPrimary)
-        }
-
-        Spacer(modifier = Modifier.weight(1f))
-
-        IconButton(onClick = {
-            onComplete()
-            onBack()
-        }) {
-            Icon(Icons.Rounded.Done, tint = MaterialTheme.colors.onPrimary)
-        }
-
-        IconButton(onClick = {
-            onDelete()
-            onBack()
-        }) {
-            Icon(vectorResource(id = getIcon("Delete")), tint = MaterialTheme.colors.onPrimary)
-        }
-    }
+    TopAppBar(
+        title = {},
+        navigationIcon = {
+            IconButton(onClick = onBackPress) {
+                Icon(Icons.Rounded.ArrowBack, tint = contentColor)
+            }
+        },
+        actions = {
+            actions.forEach { action ->
+                IconButton(onClick = { onActionClick(action) }) {
+                    Icon(action.icon, tint = contentColor)
+                }
+            }
+        },
+        backgroundColor = backgroundColor,
+        contentColor = contentColor,
+        elevation = 0.dp
+    )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewHeader() {
-    Routing.Edit.Header(onComplete = {}, onBack = {}, onDelete = {})
+    TopBar(onActionClick = {}, onBackPress = {})
 }

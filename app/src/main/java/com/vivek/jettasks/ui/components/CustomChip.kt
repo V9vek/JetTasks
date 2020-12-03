@@ -13,6 +13,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.MaterialTheme.colors
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,7 +48,7 @@ fun DateChip(
             )
             if (showCross) {
                 Icon(
-                    vectorResource(id = getIcon("Close")),
+                    Icons.Outlined.Close,
                     tint = colors.onPrimary,
                     modifier = Modifier
                         .size(18.dp)

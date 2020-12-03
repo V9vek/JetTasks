@@ -13,8 +13,6 @@ fun getIcon(icon: String): Int {
         "Add" -> R.drawable.ic_add
         "Details" -> R.drawable.ic_details
         "Calendar" -> R.drawable.ic_calendar
-        "Close" -> R.drawable.ic_close
-        "Delete" -> R.drawable.ic_delete
         else -> R.color.white
     }
 }

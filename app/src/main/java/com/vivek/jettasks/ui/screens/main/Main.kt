@@ -105,7 +105,6 @@ fun Routing.Main.Content(
                             onArrowToggle = onArrowToggle
                         )
                     }
-
                     if (arrowToggle) {
                         items(completedTasks) { task ->
                             TaskItem(
@@ -123,7 +122,6 @@ fun Routing.Main.Content(
                         }
                     }
                 }
-
             }
         }
     }
@@ -164,7 +162,6 @@ fun TaskItem(
                 color = colors.onPrimary.copy(0.8f),
                 modifier = modifier.fillMaxSize()
             )
-
             if (task.details.isNotEmpty()) {
                 Text(
                     text = task.details,
@@ -173,7 +170,6 @@ fun TaskItem(
                     modifier = modifier.fillMaxSize()
                 )
             }
-
             if (task.date.isNotEmpty()) {
                 DateChip(
                     showCross = false,
