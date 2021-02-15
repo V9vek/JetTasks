@@ -1,28 +1,30 @@
-package com.vivek.jettasks.ui.theme
+package com.vivek.jettasks.presentation.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.*
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.vivek.jettasks.R
 
-private val ProductSans = fontFamily(
-    font(R.font.product_sans_regular),
-    font(R.font.prodcut_sans_bold, FontWeight.Bold)
+private val ProductSans = FontFamily(
+    Font(R.font.product_sans_regular),
+    Font(R.font.prodcut_sans_bold, FontWeight.Bold)
 )
 
 val typography = Typography(
     defaultFontFamily = ProductSans,
     h4 = TextStyle(
-        fontWeight = FontWeight.W300,
+        fontWeight = FontWeight.W500,
         fontSize = 30.sp
     ),
     h5 = TextStyle(
-        fontWeight = FontWeight.W300,
+        fontWeight = FontWeight.W400,
         fontSize = 24.sp
     ),
     h6 = TextStyle(
-        fontWeight = FontWeight.W300,
+        fontWeight = FontWeight.W400,
         fontSize = 18.sp
     ),
     subtitle1 = TextStyle(
@@ -34,9 +36,11 @@ val typography = Typography(
         fontSize = 16.sp
     ),
     body1 = TextStyle(
-        fontSize = 18.sp
+        fontWeight = FontWeight.W400,
+        fontSize = 17.sp
     ),
     body2 = TextStyle(
+        fontWeight = FontWeight.W400,
         fontSize = 16.sp
     ),
     button = TextStyle(

@@ -4,13 +4,14 @@
 
     <application
         android:allowBackup="true"
+        android:name=".presentation.BaseApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.JetTasks">
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".presentation.MainActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize"
             android:theme="@style/Theme.JetTasks.NoActionBar">

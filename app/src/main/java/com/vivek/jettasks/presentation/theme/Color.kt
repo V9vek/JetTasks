@@ -1,4 +1,4 @@
-package com.vivek.jettasks.ui.theme
+package com.vivek.jettasks.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
