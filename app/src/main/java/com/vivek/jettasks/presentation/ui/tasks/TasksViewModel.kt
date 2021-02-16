@@ -7,6 +7,7 @@ import com.vivek.jettasks.db.TaskDao
 import com.vivek.jettasks.db.model.TaskEntity
 import com.vivek.jettasks.db.model.TaskEntityMapper
 import com.vivek.jettasks.domain.model.Task
+import com.vivek.jettasks.presentation.util.SnackbarController
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -18,9 +19,7 @@ class TasksViewModel @Inject constructor(
     private val entityMapper: TaskEntityMapper
 ) : ViewModel() {
 
-    init {
-        println("taskviewmodel init")
-    }
+    val snackbarController = SnackbarController(viewModelScope)
 
     val arrowToggle = mutableStateOf(false)
 
@@ -80,6 +79,10 @@ class TasksViewModel @Inject constructor(
     fun updateTask(task: Task) = viewModelScope.launch {
         val taskEntity = entityMapper.mapFromDomainModel(task)
         dao.updateTaskOnCompletion(taskEntity)
+    }
+
+    fun undoTask(id: Int, completed: Boolean) = viewModelScope.launch {
+        dao.undoTask(id = id, completed = completed)
     }
 }
 

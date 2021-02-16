@@ -27,4 +27,7 @@ interface TaskDao {
 
     @Query("SELECT * FROM task_table WHERE id = :taskId")
     fun getTask(taskId: Int): Flow<TaskEntity>
+
+    @Query("UPDATE task_table set completed = :completed WHERE id = :id")
+    suspend fun undoTask(id: Int, completed: Boolean)
 }

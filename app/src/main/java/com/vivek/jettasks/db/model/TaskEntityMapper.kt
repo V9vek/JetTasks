@@ -7,7 +7,6 @@ import com.vivek.jettasks.utils.DomainMapper
 class TaskEntityMapper : DomainMapper<TaskEntity, Task> {
 
     override fun mapToDomainModel(model: TaskEntity): Task {
-        Log.e("mapToDomainModel", "mapToDomainModel$model")
         return Task(
             id = model.id,
             name = model.name,
