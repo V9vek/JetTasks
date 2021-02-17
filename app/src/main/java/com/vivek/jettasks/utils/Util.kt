@@ -5,6 +5,7 @@ import androidx.compose.material.CheckboxDefaults
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.HiltViewModelFactory
 import androidx.lifecycle.ViewModel
@@ -31,23 +32,6 @@ fun getCheckBoxColors(): CheckboxColors {
         checkedColor = MaterialTheme.colors.onPrimary,
         checkmarkColor = MaterialTheme.colors.primary
     )
-}
-
-fun getEmptyTask() =
-    Task(
-        id = 0,
-        name = "",
-        details = "",
-        dateCreated = 0L,
-        dateAdded = 0L,
-        dateCompleted = 0L,
-        completed = false
-    )
-
-@Composable
-inline fun <reified VM : ViewModel> NavBackStackEntry.hiltNavGraphViewModel(): VM {
-    val viewmodelFactory = HiltViewModelFactory(LocalContext.current, this)
-    return ViewModelProvider(this, viewmodelFactory).get(VM::class.java)
 }
 
 

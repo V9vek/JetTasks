@@ -4,7 +4,6 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.InteractionState
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.indication
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -36,6 +35,8 @@ fun TasksScreen(
 
     val activeTasks = viewModel.activeTasks.collectAsState(listOf()).value
     val completedTasks = viewModel.completedTasks.collectAsState(listOf()).value
+    val currentCompletedTaskId = remember { mutableStateOf(-1) }
+    val currentTaskIsCompleted = remember { mutableStateOf(false) }
 
     val arrowToggle = viewModel.arrowToggle.value
     val todoTask = viewModel.taskTodo.value
@@ -43,9 +44,6 @@ fun TasksScreen(
     val taskDate = viewModel.taskDate.value
     val toggleDetails = viewModel.toggleTaskDetail.value
     val toggleDate = viewModel.toggleTaskDate.value
-
-    val currentCompletedTaskId = remember { mutableStateOf(-1) }
-    val currentTaskIsCompleted = remember { mutableStateOf(false) }
 
     // Back press handling if bottom sheet is open
     BackHandler(
@@ -91,6 +89,9 @@ fun TasksScreen(
                     .fillMaxSize()
                     .padding(innerPadding),
             ) {
+
+                FreshStart(visible = (activeTasks.isNullOrEmpty() && completedTasks.isNullOrEmpty()))
+
                 LazyColumn {
                     item { MyTasksTitle() }
 
@@ -98,10 +99,9 @@ fun TasksScreen(
                         TaskItem(
                             task = task,
                             modifier = Modifier.clickable(
-                                onClick = { onTaskClick(task) },
-                            ).indication(
                                 interactionState = InteractionState(),
-                                indication = null
+                                indication = null,
+                                onClick = { onTaskClick(task) },
                             ),
                             onTaskComplete = { taskToBeCompleted ->
                                 viewModel.updateTask(taskToBeCompleted)
@@ -133,10 +133,9 @@ fun TasksScreen(
                                 TaskItem(
                                     task = task,
                                     modifier = Modifier.clickable(
-                                        onClick = { onTaskClick(task) },
-                                    ).indication(
                                         interactionState = InteractionState(),
-                                        indication = null
+                                        indication = null,
+                                        onClick = { onTaskClick(task) },
                                     ),
                                     onTaskComplete = { taskToBeActive ->
                                         viewModel.updateTask(task = taskToBeActive)
@@ -157,8 +156,6 @@ fun TasksScreen(
                     }
                 }
 
-                FreshStart(visible = (activeTasks.isNullOrEmpty() && completedTasks.isNullOrEmpty()))
-
                 DefaultSnackbar(
                     modifier = Modifier.align(Alignment.BottomCenter)
                         .padding(horizontal = 16.dp, vertical = 32.dp),
@@ -174,3 +171,10 @@ fun TasksScreen(
         }
     }
 }
+
+
+
+
+
+
+

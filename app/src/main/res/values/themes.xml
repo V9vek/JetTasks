@@ -25,4 +25,5 @@
     <style name="Theme.JetTasks.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.JetTasks.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>

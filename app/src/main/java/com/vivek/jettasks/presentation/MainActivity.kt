@@ -9,15 +9,15 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
-import com.vivek.jettasks.presentation.navigation.Screen.Edit
-import com.vivek.jettasks.presentation.navigation.Screen.Tasks
+import com.vivek.jettasks.presentation.navigation.Screen.*
+import com.vivek.jettasks.presentation.navigation.hiltNavGraphViewModel
 import com.vivek.jettasks.presentation.theme.JetTasksTheme
 import com.vivek.jettasks.presentation.ui.edit.EditTaskScreen
 import com.vivek.jettasks.presentation.ui.edit.EditTaskViewModel
 import com.vivek.jettasks.presentation.ui.edit.provideEditTaskViewModel
+import com.vivek.jettasks.presentation.ui.splash.SplashScreenAnimation
 import com.vivek.jettasks.presentation.ui.tasks.TasksScreen
 import com.vivek.jettasks.presentation.ui.tasks.TasksViewModel
-import com.vivek.jettasks.utils.hiltNavGraphViewModel
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,7 +48,11 @@ class MainActivity : AppCompatActivity() {
         JetTasksTheme {
             val navController = rememberNavController()
 
-            NavHost(navController = navController, startDestination = Tasks.route) {
+            NavHost(navController = navController, startDestination = Splash.route) {
+                composable(route = Splash.route) {
+                    SplashScreenAnimation(navController = navController)
+                }
+
                 composable(route = Tasks.route) { navBackStackEntry ->
                     val viewModel: TasksViewModel = navBackStackEntry.hiltNavGraphViewModel()
                     TasksScreen(
